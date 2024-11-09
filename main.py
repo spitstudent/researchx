@@ -38,7 +38,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-templates = Jinja2Templates(directory='app/templates')
+templates = Jinja2Templates(directory='templates')
 app.include_router(auth.router)
 app.include_router(paper.router)
 app.include_router(mashup.router)
