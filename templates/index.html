@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arXiv</title>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 240 10% 3.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 10% 3.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 240 10% 3.9%;
+            --primary: 346.8 77.2% 49.8%;
+            --primary-foreground: 355.7 100% 99%;
+            --secondary: 240 4.8% 95.9%;
+            --secondary-foreground: 240 5.9% 10%;
+            --muted: 240 4.8% 95.9%;
+            --muted-foreground: 240 3.8% 45%;
+            --accent: 240 4.8% 95.9%;
+            --accent-foreground: 240 5.9% 10%;
+            --destructive: 0 72% 51%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 240 5.9% 90%;
+            --input: 240 5.9% 90%;
+            --ring: 346.8 77.2% 49.8%;
+            --chart-1: 347 77% 50%;
+            --chart-2: 349 77% 62%;
+            --chart-3: 350 80% 72%;
+            --chart-4: 351 83% 82%;
+            --chart-5: 352 83% 91%;
+            --radius: 0.5rem;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            --font-sans-serif: 'Inter';
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            --font-sans-serif: 'Inter';
+            margin: 0;
+            padding: 0;
+            color: var(--foreground);
+            background-color: var(--background);
+        }
+        .bg-background { background-color: var(--background); }
+        .text-foreground { color: var(--foreground); }
+        .bg-card { background-color: var(--card); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .bg-primary { background-color: var(--primary); }
+        .text-primary-foreground { color: var(--primary-foreground); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .ring-offset-background { box-shadow: 0 0 0 2px var(--background); }
+        .ring-ring { box-shadow: 0 0 0 2px var(--ring); }
+        .hover\:text-primary:hover { color: var(--primary); }
+        .shadow-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .text-center { text-align: center; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .font-bold { font-weight: bold; }
+        .font-medium { font-weight: 500; }
+        .tracking-tight { letter-spacing: -0.015em; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .max-w-3xl { max-width: 48rem; }
+        .w-full { width: 100%; }
+        .h-10 { height: 2.5rem; }
+        .h-9 { height: 2.25rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .rounded-l-md { border-radius: 0.375rem 0 0 0.375rem; }
+        .rounded-r-md { border-radius: 0 0.375rem 0.375rem 0; }
+        .rounded-md { border-radius: 0.375rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .font-medium { font-weight: 500; }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .text-primary { color: var(--primary); }
+        .transition-colors { transition: color 0.2s; }
+        .disabled\:opacity-50:disabled { opacity: 0.5; }
+        .hover\:bg-primary\/90:hover { background-color: rgba(0, 0, 0, 0.9); }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .flex-1 { flex: 1 1 0%; }
+        .grid { display: grid; }
+        .gap-6 { gap: 1.5rem; }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .font-bold { font-weight: bold; }
+        .text-primary-foreground { color: var(--primary-foreground); }
+        .bg-primary { background-color: var(--primary); }
+        .bg-muted { background-color: var(--muted); }
+        .text-sm { font-size: 0.875rem; }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .text-primary { color: var(--primary); }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="bg-background text-foreground">
+        <header class="bg-card py-4 shadow-sm">
+            <div class="container mx-auto flex items-center justify-between px-4 md:px-6">
+                <a class="text-2xl font-bold" href="#">
+                    arXiv
+                </a>
+                <nav class="hidden md:flex items-center gap-4">
+                    <a class="text-sm font-medium hover:text-primary" href="#">
+                        Browse
+                    </a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">
+                        Submit
+                    </a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">
+                        About
+                    </a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">
+                        Help
+                    </a>
+                </nav>
+                <button class="items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 hidden md:inline-flex">
+                    Sign In
+                </button>
+            </div>
+        </header>
+        <section class="bg-card py-12 md:py-20">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="mx-auto max-w-3xl text-center">
+                    <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Discover the Latest Research</h1>
+                    <p class="mt-4 text-muted-foreground md:text-xl">
+                        Search and access thousands of preprints in the fields of physics, mathematics, computer science, and more.
+                    </p>
+                    <div class="mt-8">
+                        <form class="flex items-center rounded-md bg-background shadow-sm">
+                            <input
+                                class="flex h-10 w-full rounded-md border border-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1 rounded-l-md border-none bg-transparent py-2 px-4 text-sm focus:ring-0"
+                                type="text"
+                                placeholder="Search papers, authors, or keywords"
+                            />
+                            <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 rounded-r-md">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-card py-12 md:py-20">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="mx-auto max-w-3xl">
+                    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Recent Submissions</h2>
+                    <div class="mt-6 grid gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        A Minimalist Approach to Quantum Computing
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">John Doe, Jane Smith, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    Quantum computing has the potential to revolutionize various fields, from cryptography to scientific simulations. This paper presents a minimalist approach to quantum computing, focusing on the fundamental principles and practical implementation.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        Exploring the Limits of Deep Learning
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">Jane Doe, John Smith, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    Deep learning has achieved remarkable success in various domains, but it also faces fundamental limitations. This paper investigates the theoretical and practical constraints of deep learning, paving the way for future advancements.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        Towards Sustainable Energy Solutions
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">John Smith, Jane Doe, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    The transition to sustainable energy sources is a pressing global challenge. This paper explores innovative approaches to renewable energy generation, storage, and distribution, aiming to address the growing demand for clean and reliable power.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-card py-12 md:py-20">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="mx-auto max-w-3xl">
+                    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Featured Papers</h2>
+                    <div class="mt-6 grid gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        Advances in Quantum Cryptography
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">Jane Smith, John Doe, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    Quantum cryptography offers unprecedented security for data transmission, with the potential to revolutionize the field of secure communication. This paper presents the latest advancements in quantum key distribution and related protocols.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        Machine Learning for Climate Modeling
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">John Doe, Jane Smith, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    Climate modeling is a complex and data-intensive field, presenting significant challenges. This paper explores the application of machine learning techniques to improve the accuracy and efficiency of climate simulations, with the goal of better understanding and predicting climate change.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="h-6 w-6 text-muted-foreground"
+                                >
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">
+                                    <a class="hover:text-primary" href="#">
+                                        Algorithmic Fairness in Decision-Making
+                                    </a>
+                                </h3>
+                                <p class="mt-1 text-muted-foreground">Jane Doe, John Smith, et al.</p>
+                                <p class="mt-2 text-sm text-muted-foreground">
+                                    As algorithms play an increasingly influential role in decision-making processes, the issue of fairness and bias has become a pressing concern. This paper examines the challenges and potential solutions for ensuring algorithmic fairness in high-stakes applications.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="bg-muted py-8 text-muted-foreground">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="mx-auto max-w-3xl text-center">
+                    <p class="text-sm">© 2024 arXiv. All rights reserved.</p>
+                    <div class="mt-4 flex justify-center gap-4">
+                        <a class="text-sm hover:text-primary" href="#">
+                            About
+                        </a>
+                        <a class="text-sm hover:text-primary" href="#">
+                            Contact
+                        </a>
+                        <a class="text-sm hover:text-primary" href="#">
+                            Privacy
+                        </a>
+                        <a class="text-sm hover:text-primary" href="#">
+                            Terms
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
