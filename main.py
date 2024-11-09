@@ -28,6 +28,8 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",  # React frontend URL
     "http://localhost:8000",  # Add any other URLs you want to allow
+    "https://research-x.vercel.app",
+    "https://*.vercel.app"
 ]
 
 app.add_middleware(
